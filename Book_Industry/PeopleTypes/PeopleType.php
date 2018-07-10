@@ -31,7 +31,7 @@ include '/var/www/html/AnkushDeora/Book_Industry/PeopleTypes/author.php';
 
         }   
     }
-
+sds
     $tpeople = new TypesOfPeople();
 
 ?>
