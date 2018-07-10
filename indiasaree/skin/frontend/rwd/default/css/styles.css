@@ -3979,6 +3979,9 @@ a.skip-link {
    * Social icons
    */
 }
+ 
+
+
 @media only screen and (max-width: 479px) {
   .footer {
     padding-top: 15px;
@@ -3987,6 +3990,7 @@ a.skip-link {
 .footer .block-title {
   border-bottom: 0;
   padding: 3px 0;
+  border-top:none !Important;
 }
 .footer .block-title strong {
   font-weight: normal;
