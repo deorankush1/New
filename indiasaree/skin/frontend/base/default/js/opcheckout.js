@@ -405,9 +405,9 @@ Billing.prototype = {
             if ((typeof response.message) == 'string') {
                 alert(response.message);
             } else {
-                if (window.billingRegionUpdater) {
-                    billingRegionUpdater.update();
-                }
+                // if (window.billingRegionUpdater) {
+                //     billingRegionUpdater.update();
+                // }
 
                 alert(response.message.join("\n"));
             }
@@ -517,18 +517,18 @@ Shipping.prototype = {
                 }
             }
             //$('shipping:country_id').value = $('billing:country_id').value;
-            shippingRegionUpdater.update();
-            $('shipping:region_id').value = $('billing:region_id').value;
-            $('shipping:region').value = $('billing:region').value;
-            //shippingForm.elementChildLoad($('shipping:country_id'), this.setRegionValue.bind(this));
+            // shippingRegionUpdater.update();
+            // $('shipping:region_id').value = $('billing:region_id').value;
+            // $('shipping:region').value = $('billing:region').value;
+            // //shippingForm.elementChildLoad($('shipping:country_id'), this.setRegionValue.bind(this));
         } else {
             $('shipping-address-select').value = $('billing-address-select').value;
         }
     },
 
-    setRegionValue: function(){
-        $('shipping:region').value = $('billing:region').value;
-    },
+    // setRegionValue: function(){
+    //     $('shipping:region').value = $('billing:region').value;
+    // },
 
     save: function(){
         if (checkout.loadWaiting!=false) return;
@@ -565,9 +565,9 @@ Shipping.prototype = {
             if ((typeof response.message) == 'string') {
                 alert(response.message);
             } else {
-                if (window.shippingRegionUpdater) {
-                    shippingRegionUpdater.update();
-                }
+                // if (window.shippingRegionUpdater) {
+                //     shippingRegionUpdater.update();
+                // }
                 alert(response.message.join("\n"));
             }
 

@@ -656,9 +656,9 @@ Validation.addAllThese([
             v = parseNumber(v);
             return !isNaN(v) && v > 0;
         }],
-    ['validate-state', 'Please select State/Province.', function(v) {
-                return (v!=0 || v == '');
-            }],
+    // ['validate-state', 'Please select State/Province.', function(v) {
+    //             return (v!=0 || v == '');
+    //         }],
     ['validate-new-password', 'Please enter 6 or more characters. Leading or trailing spaces will be ignored.', function(v) {
                 if (!Validation.get('validate-password').test(v)) return false;
                 if (Validation.get('IsEmpty').test(v) && v != '') return false;
