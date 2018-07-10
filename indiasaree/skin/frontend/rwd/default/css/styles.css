@@ -4315,6 +4315,7 @@ p.product-name a:hover {
 
 .products-grid .add-to-links {
   margin-bottom: 0;
+  display: none; !Important
 }
 
 /* Config: Two columns + flexible gutter */
@@ -5285,6 +5286,7 @@ p.product-name a:hover {
   margin-top: 0px;
   margin-right: 15px;
   float: left;
+  display: none; !Important
 }
 .product-view .add-to-links:after {
   content: '';
@@ -6253,7 +6255,7 @@ p.product-name a:hover {
   margin-left: 0;
 }
 .checkout-types .method-checkout-cart-methods-multishipping {
-  display: block;
+  display: none;
 }
 .checkout-types.top li {
   display: inline-block;
