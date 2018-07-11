@@ -2053,9 +2053,9 @@ span.weee {
   margin-bottom: 1.5em;
 }
 
-.std ul li {
-  margin-left: 2em;
-}
+/*.std ul li {
+  margin-left: 2em; 
+}*/
 
 .std .note {
   color: #a0a0a0;
@@ -4266,6 +4266,13 @@ p.product-name a:hover {
   display: table;
   clear: both;
 }
+.center_image{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+>
+}
 
 .products-grid .product-image {
   width: 100%;
@@ -4273,7 +4280,7 @@ p.product-name a:hover {
 }
 
 .products-grid .product-image img {
-  width: 100%;
+  width: 55%;
   height: auto;
 }
 .products-grid .product-image img:hidden {
