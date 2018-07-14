@@ -1,0 +1,9 @@
+a:5:{i:0;s:321:"Error in file: "/Applications/XAMPP/xamppfiles/htdocs/indiasaree/app/code/local/Aschroder/SMTPPro/sql/smtppro_setup/mysql4-install-1.1.0.php" - SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'smtppro_setup' for key 'PRIMARY', query was: INSERT INTO `core_resource` (`code`, `version`) VALUES (?, ?)";i:1;s:1140:"#0 /Applications/XAMPP/xamppfiles/htdocs/indiasaree/app/code/core/Mage/Core/Model/Resource/Setup.php(644): Mage::exception('Mage_Core', 'Error in file: ...')
+#1 /Applications/XAMPP/xamppfiles/htdocs/indiasaree/app/code/core/Mage/Core/Model/Resource/Setup.php(421): Mage_Core_Model_Resource_Setup->_modifyResourceDb('install', '', '2.0.7')
+#2 /Applications/XAMPP/xamppfiles/htdocs/indiasaree/app/code/core/Mage/Core/Model/Resource/Setup.php(327): Mage_Core_Model_Resource_Setup->_installResourceDb('2.0.7')
+#3 /Applications/XAMPP/xamppfiles/htdocs/indiasaree/app/code/core/Mage/Core/Model/Resource/Setup.php(235): Mage_Core_Model_Resource_Setup->applyUpdates()
+#4 /Applications/XAMPP/xamppfiles/htdocs/indiasaree/app/code/core/Mage/Core/Model/App.php(428): Mage_Core_Model_Resource_Setup::applyAllUpdates()
+#5 /Applications/XAMPP/xamppfiles/htdocs/indiasaree/app/code/core/Mage/Core/Model/App.php(354): Mage_Core_Model_App->_initModules()
+#6 /Applications/XAMPP/xamppfiles/htdocs/indiasaree/app/Mage.php(684): Mage_Core_Model_App->run(Array)
+#7 /Applications/XAMPP/xamppfiles/htdocs/indiasaree/index.php(83): Mage::run('', 'store')
+#8 {main}";s:3:"url";s:101:"/indiasaree/index.php/admin/system_config/edit/section/advanced/key/7a1118b1e9eeb57427afd6ca2dcb314c/";s:11:"script_name";s:21:"/indiasaree/index.php";s:4:"skin";s:7:"default";}
