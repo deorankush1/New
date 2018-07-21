@@ -64,6 +64,11 @@
                     <div class="input-box">
                         <textarea name="billing[street][]" id="billing:street1" cols="20" rows="2" class="input-text <?php echo $_streetValidationClass ?>">
                         <?php echo $this->escapeHtml($this->getAddress()->getStreet(1)) ?></textarea>
+                        <style type="text/css">
+                            textarea{
+                                max-width: 47.5%;
+                            }
+                        </style>
 
                     </div>
                 </li>
