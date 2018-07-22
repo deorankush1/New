@@ -26,6 +26,7 @@
 /**
  * @var Mage_Page_Block_Html_Header $this
  */
+
 ?>
 
 <div class="header-language-background">
@@ -43,9 +44,20 @@
 
         <div class="right-top">
             <ul class = "right-side-top">
-                <li>
-                    Saree Vale
+                <li class = "rowline">
+                    <a href="{{store url=""}}"/wishlist/" title="My Wishlist">My Wishlist</a>    
+                </li>
 
+                <li class = "rowline">
+                    <a href="{{store url=""}}"/customer/account/create/" title="Sign Up">Sign Up</a>    
+                </li>
+                
+                <li class = "rowline">                    
+                    <a href="{{store url=""}}"customer/account/login/" title="Login">Login</a>
+                </li>
+                
+                <li class = "rowline">
+                    <a href="{{store url=""}} title="Blog">Blog</a> 
                 </li>
             </ul>
         </div>
@@ -118,6 +130,4 @@
 
     </div>
 </header>
-
-
 <?php echo $this->getChildHtml('topContainer'); ?>

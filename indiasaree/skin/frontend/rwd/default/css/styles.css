@@ -3173,6 +3173,12 @@ body {
     position: relative;
   }
 }
+
+.rowline {
+    display: inline-block;
+    padding: 2px;
+    }
+    
 .header-language-container,
 .page-header {
   font-family: "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
