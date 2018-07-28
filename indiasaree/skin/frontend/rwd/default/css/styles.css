@@ -3226,6 +3226,7 @@ body {
 .left-side-top{
   float:left;
 }
+
 .right-side-top{
   float: right;
 }
@@ -3407,6 +3408,8 @@ a.skip-link {
     text-transform: uppercase;
     line-height: 30px;
   }
+  
+
 
   #header-account li:last-child a,
   .nav-primary li.level0:last-child a.level0 {
@@ -3428,6 +3431,13 @@ a.skip-link {
   margin: 0 auto;
   position: relative;
   width:101.5%;
+}
+.nav-primary{
+  background: red ;
+}
+
+.level0{
+  color: white !important;
 }
 @media only screen and (max-width: 770px) {
   .account-cart-wrapper {
