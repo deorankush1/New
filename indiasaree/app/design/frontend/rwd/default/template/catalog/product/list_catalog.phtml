@@ -1,3 +1,4 @@
+
 <?php
 /**
  * Magento
@@ -40,7 +41,7 @@
 <p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
 <?php else: ?>
 <div class="category-products">
-    <h3> Feature Products are</h3>
+    <?php echo $this->getToolbarHtml() ?>
     <?php // List mode ?>
     <?php if($this->getMode()!='grid'): ?>
     <?php $_iterator = 0; ?>
@@ -119,14 +120,14 @@
 
     <?php $_collectionSize = $_productCollection->count() ?>
     <?php $_columnCount = $this->getColumnCount(); ?>
-    <ul class="products-grid products-grid--max-<?php echo $_columnCount; ?>-col">
+    <ul  class="products-grid products-grid--max-<?php echo 4; ?>-col">
         <?php $i=0; foreach ($_productCollection as $_product): ?>
             <?php /*if ($i++%$_columnCount==0): ?>
             <?php endif*/ ?>
             <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
                 <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
-                    <?php $_imgSize = 210; ?>
-                    <img id="product-collection-image-<?php echo $_product->getId(); ?>"
+                    <?php $_imgSize = 1000; ?>
+                    <img class = "center_image" id="product-collection-image-<?php echo $_product->getId(); ?>"
                          src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($_imgSize); ?>"
                          alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
                 </a>
@@ -172,9 +173,16 @@
         <?php endforeach ?>
     </ul>
     <script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
+    <style type="text/css">
+        li{
+             list-style-type: none; 
+        }
+    </style>
     <?php endif; ?>
 
-   
+    <!-- <div class="toolbar-bottom">
+        <?php echo $this->getToolbarHtml() ?>
+    </div> -->
 </div>
 <?php endif; ?>
 <?php
@@ -189,11 +197,16 @@ if ($this->getChild('after')) {
     }
 }
 ?>
+
+
+
+
+
 <script>
 $j(document).ready(function(){
   $j('.products-grid').slick({
        infinite: true,
-       slidesToShow: 5,
+       slidesToShow: 3,
        slidesToScroll: 1,
        // arrows: true,
        autoplay: true,
