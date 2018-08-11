@@ -1750,6 +1750,7 @@ a.button:hover {
 .price-box {
   margin: 7px 0;
   font-family: "Helvetica Neue", Verdana, Arial, sans-serif;
+      
 }
 
 .price-box p {
@@ -1792,6 +1793,7 @@ a.button:hover {
 .price-box .old-price,
 .price-box .special-price {
   display: inline-block;
+  padding-right: 36px !important;
 }
 .price-box .old-price .price-label,
 .price-box .special-price .price-label {
@@ -1805,6 +1807,8 @@ a.button:hover {
 .price-box .old-price .price {
   color: #a0a0a0;
   text-decoration: line-through;
+  padding-right: 36px;
+  padding-left: 15px;
 }
 
 .price-box .special-price {
@@ -4312,8 +4316,8 @@ p.product-name a:hover {
 }
 
 .products-grid .product-image img {
-  width: 55%;
-  height: auto;
+  width: 100%;
+  height: 275px;
 }
 .products-grid .product-image img:hidden {
   display: none;
@@ -4327,7 +4331,7 @@ p.product-name a:hover {
 
 .products-grid .product-info {
   position: relative;
-  padding-bottom: 95px;
+  padding-bottom: 0px;
 }
 
 .products-grid .actions {
@@ -5016,6 +5020,14 @@ p.product-name a:hover {
   clear: left;
   width: 70%;
 }
+.price-info{
+
+    padding-right: 600px;
+    padding-left: 0px;
+    width: 100%;
+    height: 50px;
+
+}
 .product-view .product-shop .price-info {
   float: right;
   padding-left: 15px;
@@ -5135,8 +5147,8 @@ p.product-name a:hover {
   margin-bottom: 10px;
 }
 .product-img-box .product-image img {
-  max-width: 100%;
-  max-height: 750px;
+  max-width: 50%;
+  max-height: initial;
   margin: 0px auto;
 }
 
@@ -5165,6 +5177,7 @@ p.product-name a:hover {
   width: 100%;
   height: 100%;
   display: none;
+
 }
 .product-image-gallery:before {
   background-color: white;
