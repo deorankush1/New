@@ -1,4 +1,7 @@
 <?php
+$FooterBlock = new Mage_Page_Block_Html_Footer();
+?>
+<?php
 /**
  * Magento
  *
@@ -39,6 +42,7 @@
             <div class="actions">
                 <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Subscribe')) ?>" class="button"><span><span><?php echo $this->__('Subscribe') ?></span></span></button>
             </div>
+            <address class="copyright 123"><?php echo $FooterBlock->getCopyright() ?></address>
         </div>
     </form>
     <script type="text/javascript">
