@@ -45,7 +45,7 @@ jQuery(function(){
                 console.log(data);
                 if(data.pincode == pincode && data.status == 1)
                 {
-                    jQuery("#message").html("Available");
+                    jQuery("#message").html("Available within 4-5 Working Days");
                 }
                 else if(data.pincode == pincode && data.status == 0)
                 {
@@ -53,7 +53,7 @@ jQuery(function(){
                 }
                 else
                 {
-                    jQuery("#message").html("Pincode Not Available in db");   
+                    jQuery("#message").html("Delivery Not Available");   
                 }
                
             } });
