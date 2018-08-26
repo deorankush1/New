@@ -52,3 +52,4 @@ media/*
 desktop.ini
 #############    EOF         ##########
 /nbproject
+.DS_Store
