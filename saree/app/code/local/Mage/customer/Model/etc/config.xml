@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<lastname>
+                    <billing>1</billing>
+                    <shipping>1</shipping>
+                    **<required>0</required>** // change from 1 to 0
+                    <mapped>1</mapped>
+     </lastname>

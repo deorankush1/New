@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<config>
+    <modules>
+        <Shipping_Checkout>
+            <version>0.0.2</version>
+        </Shipping_Checkout>
+    </modules>
+    <global>
+        <models>
+            <checkout>
+                <rewrite>
+                    <type_onepage>Shipping_Checkout_Model_Type_Onepage</type_onepage>
+                </rewrite>
+            </checkout>
+        </models>
+  
+        <blocks>
+            <checkout>
+                <rewrite>
+                    <onepage_shipping_method>Shipping_Checkout_Block_Onepage_Shipping_Method</onepage_shipping_method>
+                </rewrite>
+            </checkout>
+        </blocks>    
+    </global>
+  
+    <frontend>
+        <routers>
+            <checkout>
+                <args>
+                    <modules>
+                        <checkoutShipping before="Mage_Checkout">Shipping_Checkout</checkoutShipping>
+                    </modules>
+                </args>
+            </checkout>
+        </routers>
+    </frontend>
+    
+</config> 

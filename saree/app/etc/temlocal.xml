@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    Mage
+ * @package     Mage_Core
+ * @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<config>
+    <global>
+        <install>
+            <date><Fri, 06 Jul 2018 08:39:08 +0000 ></date>
+        </install>
+        <crypt>
+            <key><18096a09491233493ec2914bea13b001></key>
+        </crypt>
+        <disable_local_modules>false</disable_local_modules>
+        <resources>
+            <db>
+                <table_prefix><></table_prefix>
+            </db>
+            <default_setup>
+                <connection>
+                    <host><13.126.88.99></host>
+                    <username><deora_sarees></username>
+                    <password><D@ors@r123></password>
+                    <dbname><deorasarees></dbname>
+                    <initStatements><SET NAMES utf8></initStatements>
+                    <model><mysql4></model>
+                    <type><pdo_mysql></type>
+                    <pdoType><></pdoType>
+                    <active>1</active>
+                </connection>
+            </default_setup>
+        </resources>
+
+<!-- <session_save><![CDATA[files]]></session_save>-->
+<!-- REDIS SESSION START -->
+       <!-- <session_save>db</session_save>
+        <redis_session>
+                <host>127.0.0.1</host>
+                <port>6379</port>
+                <password></password>
+                <timeout>5</timeout>
+                <persistent>sess-db0</persistent>
+                <db>0</db>
+                <compression_threshold>2048</compression_threshold>
+                <compression_lib>gzip</compression_lib>
+                <log_broken_locks>0</log_broken_locks>
+                <max_concurrency>15</max_concurrency>
+                <break_after_frontend>5</break_after_frontend>
+                <break_after_adminhtml>30</break_after_adminhtml>
+                <bot_lifetime>7200</bot_lifetime>
+                <disable_locking>0</disable_locking>
+                <max_lifetime>2592000</max_lifetime>
+        </redis_session> -->
+        <!-- REDIS SESSION END -->
+    </global>
+    <admin>
+    <routers>
+            <adminhtml>
+                <args>
+                    <frontName><admin></frontName>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <!--<frontend>
+     <secure_url>
+      <all>/</all>
+     </secure_url>
+   </frontend>-->
+</config>
