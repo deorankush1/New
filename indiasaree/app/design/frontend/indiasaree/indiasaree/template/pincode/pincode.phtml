@@ -1,0 +1,15 @@
+<form action="" name="pincode" id="pincode_form">
+	<input type= "text" placeholder = "Enter PinCode For Availability Check:" name="pincode" id="pin" class = "required-entry validate-pincode-length">
+	<input type="submit" name="pincode_submit" id="submit_pin" value="Submit">
+	<input type="hidden" name="url" id="get_url" value="<?php echo Mage::getBaseUrl(); ?>">
+	<span id ="message"></span>
+</form>
+<script type="text/javascript">
+//<![CDATA[
+var dataForm = new VarienForm('pincode_form', true);
+//]]>
+</script>
+
+
+
+

@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Ambab_Pincode>
+			<version>1.0.0</version>
+		</Ambab_Pincode>
+	</modules>
+	<frontend>
+		<routers>
+			<pincode>
+				<use>standard</use>
+				<args>
+					<module>Ambab_Pincode</module>
+					<frontName>pincode</frontName>
+				</args>
+			</pincode>
+		</routers>
+		<layout>
+		            <updates>
+		                <pincode>
+		                    <file>pincode.xml</file>
+		                </pincode>
+		            </updates>
+		        </layout>
+	</frontend>
+	<admin>
+		<routers>
+			<pincode>
+				<use>admin</use>
+				<args>
+					<module>Ambab_Pincode</module>
+					<frontName>admin_pincode</frontName>
+				</args>
+			</pincode>
+		</routers>
+	</admin>
+	<global>
+		<helpers>
+			<pincode>
+				<class>Ambab_Pincode_Helper</class>
+			</pincode>
+		</helpers>
+	</global>
+	<adminhtml>
+		<menu>
+			<pincode module="pincode">
+				<title>Pincode</title>
+				<sort_order>100</sort_order>
+				<children>
+					<pincode module="pincode">
+						<title>Pincode</title>
+						<sort_order>0</sort_order>
+						<action>admin_pincode/adminhtml_index</action>
+					</pincode>
+				</children>
+			</pincode>
+		</menu>
+		<!-- <acl>
+			       <resources>
+		            <all>
+		                <title>Allow Everything</title>
+		            </all>
+		            <admin>
+		                <children>
+		                    <pincode>
+		                        <title>Pincode Module</title>
+		                        <sort_order>200</sort_order>
+		                    </pincode>
+		                </children>
+		            </admin>
+			        </resources>   
+			    </acl> -->
+	   <!--  <layout>
+	       <updates>
+	           <pincode>
+	               <file>pincode_check.xml</file>
+	           </pincode>
+	       </updates>
+	   </layout> -->
+	  <!--  <acl>
+      <resources>
+        <admin>
+         <children>
