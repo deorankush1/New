@@ -38,18 +38,21 @@ $_getBase = Mage::app()->getStore()->getBaseUrl();
         </div>
         <div class = "left-top">
             <ul class= "left-side-top">
-                <li>
+                <li class = "rowline">
                     <a href="">Call +91 9549 21 0018</a>
+                </li>
+
+                 <li class = "rowline">
+                    <a href="<?php echo $_getBase; ?>" title="Blog">Blog</a> 
                 </li>
             </ul>
         </div>
 
         <div class="right-top">
+           <?php if( ! Mage::getSingleton('customer/session')->isLoggedIn()){ ?>
             <ul class = "right-side-top">
                
-               <li class = "rowline">
-                    <a href="<?php echo $_getBase; ?>wishlist" title="My Wishlist">My Wishlist</a>    
-                </li>
+               
 
 
                 <li class = "rowline">
@@ -60,6 +63,28 @@ $_getBase = Mage::app()->getStore()->getBaseUrl();
                 <li class = "rowline">                    
                     <a href="<?php echo $_getBase; ?>customer/account/login/" title="Login">Login</a>
                 </li>
+                <?php } else { ?>
+                    <?php $customer = Mage::getSingleton('customer/session')->getCustomer();?>
+                    
+                       <!--  <a href="javascript:void(0)" class="accountNav" class = "rowline">
+                            <span class="top_user_icon"></span>
+                            <span class="userName">Hi <?php echo $customer->getName();  ?></span>
+                        </a> -->
+                        <ul class = "right-side-top">
+                            <li class = "rowline">
+                                <a href="<?php echo $this->helper('customer')->getAccountUrl(); ?>" title="My Account">My Account</a>
+                            </li>
+                            <li class = "rowline">
+                                <a href="<?php echo $this->helper('customer')->getLogoutUrl(); ?>" title="Logout" class="logout">Logout</a>
+                            </li>
+                            <li class = "rowline">
+                                <a href="<?php echo $_getBase; ?>wishlist" title="My Wishlist">My Wishlist</a>    
+                            </li>
+
+                        </ul>
+                        
+                    
+                <?php } ?>
                 <!-- 
                 <li class = "rowline">
                     <a href="{{store url=""}} title="Account">My Account</a> 
@@ -69,9 +94,7 @@ $_getBase = Mage::app()->getStore()->getBaseUrl();
                     <a href="{{store url=""}} title="Logout">Logout</a> 
                 </li> -->
 
-                <li class = "rowline">
-                    <a href="http://localhost/wordpress/"  target="_blank" title="Blog">Blog</a> 
-                </li>
+                
             </ul>
         </div>
 
