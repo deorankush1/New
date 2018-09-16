@@ -61,12 +61,36 @@ foreach ($children as $child) {
 
     if (!empty($_hasChildren)) {
         $html .= '<ul class="level'. $childLevel .'">';
+        $html .= '<div class="section-bind">';
         $html .=     '<li class="level'. $nextChildLevel .' view-all">';
         $html .=         '<a class="level'. $nextChildLevel .'" href="'. $child->getUrl() .'">';
-        $html .=             $this->__('View All') . ' ' . $this->escapeHtml($this->__($child->getName()));
+        //$html .=             $this->__('View All') . ' ' . $this->escapeHtml($this->__($child->getName()));
         $html .=         '</a>';
         $html .=     '</li>';
+
         $html .=     $this->render($child, $childrenWrapClass);
+        $html .= '</div>';
+           if($childLevel == 0){
+
+        $categoryId = str_replace("category-node-","",$child->getId());
+
+        $_category  = Mage::getModel('catalog/category')->load($categoryId);
+        // print_r($_category);
+        // exit;
+        // //print_r($_category-> getData());
+        // print_r($_category->getCategoryMenuImage());
+        // exit;
+
+        if(!empty($_category->getCategoryMenuImage())){
+
+            $img = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'catalog/category/'.$_category->getCategoryMenuImage();
+            echo "here";
+            // print_r($img);
+
+            // exit;
+            $html .= '<div class="col sub-menu-img-box"><div class="img-block"><a href="'. $child->getUrl() .'"><img src="'. $img .'" alt="cat_menu-img"><span class="img-content"><span class="l-name">'. $child->getName() .'</span><span class="l-desc">Dicover</span></span></a></div></div>';
+        }
+    }
         $html .= '</ul>';
     }
 
@@ -77,6 +101,22 @@ foreach ($children as $child) {
     $html .= '</li>';
 
     $counter++;
+    
+  
 }
 
 return $html;
+?>
+
+<style type="text/css">
+    .section-bind{
+        display: block;
+        float: left;
+        margin: 1% 0 1% 0%;
+    }
+
+    .sub-menu-img-box{
+    float: right;
+    width: 25%;}
+    
+</style>
