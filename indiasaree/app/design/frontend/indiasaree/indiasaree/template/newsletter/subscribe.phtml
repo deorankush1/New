@@ -67,8 +67,10 @@ jQuery(document).ready(function() {
             //jQuery('#newsletter-loader').show();
             jQuery('#newsletter_button').attr('disabled', 'disabled');
             var email = jQuery("#newsletter").val();
+            var BASE_URL='<?php echo Mage::getBaseUrl()."ajax/subscriber/newajax"?>';
+            //alert(BASE_URL);
             jQuery.ajax({
-                url: 'ajax/subscriber/newajax',
+                url: BASE_URL,
                 dataType: 'json',
                 type: 'POST',
                 data: {
