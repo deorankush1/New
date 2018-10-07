@@ -37,17 +37,78 @@ $FooterBlock = new Mage_Page_Block_Html_Footer();
                 <label for="newsletter"><?php echo $this->__('Sign Up for Our Newsletter:') ?></label>
             </div>
             <div class="input-box">
-               <input type="email" autocapitalize="off" autocorrect="off" spellcheck="false" name="email" id="newsletter" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Sign up for our newsletter')) ?>" class="input-text required-entry validate-email" />
+               <input type="email" autocapitalize="off" autocorrect="off" spellcheck="false" name="email" id="newsletter" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Sign up for our newsletter')) ?>" class="input-text required-entry validate-email" placeholder="Enter Your Email for updates"/>
             </div>
             <div class="actions">
-                <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Subscribe')) ?>" class="button"><span><span><?php echo $this->__('Subscribe') ?></span></span></button>
+                <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Subscribe')) ?>" class="button" id ="newsletter_button"><span><span><?php echo $this->__('Subscribe') ?></span></span></button>
             </div>
             <address class="copyright 123"><?php echo $FooterBlock->getCopyright() ?></address>
         </div>
     </form>
-    <script type="text/javascript">
-    //<![CDATA[
-        var newsletterSubscriberFormDetail = new VarienForm('newsletter-validate-detail');
-    //]]>
-    </script>
+    <div class="newsletter-message"></div>
+    
 </div>
+
+
+<script type="text/javascript">
+jQuery(document).ready(function() {
+    jQuery('#newsletter-validate-detail').validate({
+        errorElement: "span",
+        rules: {
+            email: {
+                required: true,
+                email: true
+            }
+        },
+        messages: {
+            email: "This is a required field"
+        },
+        submitHandler: function(form) {
+            //jQuery('#newsletter-loader').show();
+            jQuery('#newsletter_button').attr('disabled', 'disabled');
+            var email = jQuery("#newsletter").val();
+            var BASE_URL='<?php echo Mage::getBaseUrl()."ajax/subscriber/newajax"?>';
+            //alert(BASE_URL);
+            jQuery.ajax({
+                url: BASE_URL,
+                dataType: 'json',
+                type: 'POST',
+                data: {
+                    email: email
+                },
+                success: function(transport) {
+                    jQuery('#newsletter_button').removeAttr('disabled');
+                    jQuery('#newsletter-loader').hide();
+                    if (transport.status == 'SUCCESS') {
+                        jQuery('.newsletter-message').show();
+                        //jQuery('#newsletter').val('');
+                        //jQuery('.newsletter-message').show();
+                        //jQuery('.error_message').show();
+                        jQuery('.newsletter-message').html(transport.message);
+                        //jQuery('#newsletter-validate-detail')[0].reset();
+                        setTimeout(function() {
+                            jQuery('.newsletter-message').hide();
+                        }, 5000);
+                        document.getElementById("newsletter-validate-detail").reset();
+
+                    } else {
+                        if ((typeof transport.message) == 'string') {
+                            //alert(transport.message);
+                            jQuery(".newsletter-message").html(transport.message);
+                            jQuery('.newsletter-message').show();
+                            setTimeout(function() {
+                                jQuery('.newsletter-message').hide();
+                            }, 5000);
+                            //jQuery('#newsletter-validate-detail')[0].reset();
+                            document.getElementById("newsletter-validate-detail").reset();
+                        }
+                        return false;
+
+                    }
+                }
+            });
+        }
+    });
+
+});
+</script>

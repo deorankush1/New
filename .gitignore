@@ -1,5 +1,5 @@
 ########   MAGENTO RELATED FILES AND FOLDERS    ######
-var/*
+indiasaree/var/*
 app/etc/local.xml
 errors/local.xm
 downloader/
@@ -52,4 +52,4 @@ media/*
 desktop.ini
 #############    EOF         ##########
 /nbproject
-.DS_Store
+indiasaree/.DS_Store

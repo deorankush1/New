@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Newsletter_Ajax>
+            <version>0.1.0</version>
+        </Newsletter_Ajax>
+    </modules>
+    <global>
+        <helpers>
+            <newsletter_ajax>
+                <class>Newsletter_Ajax_Helper</class>
+            </newsletter_ajax>
+        </helpers>
+        <blocks>
+            <newsletter_ajax>
+                <class>Newsletter_Ajax_Block</class>
+            </newsletter_ajax>
+        </blocks>
+    </global>
+    <frontend>
+        <routers>
+            <ajax>
+                <use>standard</use>
+                <args>
+                    <module>Newsletter_Ajax</module>
+                    <frontName>ajax</frontName>
+                </args>
+            </ajax>
+        </routers>
+    </frontend>
+</config>
