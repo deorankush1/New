@@ -38,6 +38,7 @@
             <block type="page/html_head" name="head" as="head">
                 <action method="addJs"><script>prototype/prototype.min.js</script></action>
                 <action method="addJs"><script>lib/jquery/jquery-1.10.2.min.js</script></action>
+                <action method="addJs"><script>jquery/validate/jquery.validate.min.js</script></action>
                 <action method="addJs"><script>lib/jquery/noconflict.min.js</script></action>
                 <action method="addJs"><script>lib/ccard.js</script></action>
                 <action method="addJs"><script>prototype/validation.js</script></action>

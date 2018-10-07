@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    Ambab
+ * @package     Ambab_Customerattribute
+ * @author      Ambab Magento Team
+ */
+-->
+<config>
+    <modules>
+        <Newsletter_Ajax>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Newsletter_Ajax>
+    </modules>
+</config>
