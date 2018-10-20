@@ -76,7 +76,14 @@ jQuery(document).ready(function() {
                 data: {
                     email: email
                 },
+                 beforeSend: function() {
+                    // setting a timeout
+                   // jQuery().addClass('loading');
+                  //alert("here");
+                    jQuery('#ajax-loader').show();
+                },
                 success: function(transport) {
+                     jQuery('#ajax-loader').hide();
                     jQuery('#newsletter_button').removeAttr('disabled');
                     jQuery('#newsletter-loader').hide();
                     if (transport.status == 'SUCCESS') {

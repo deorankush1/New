@@ -10666,3 +10666,21 @@ div.calendar table td.button {
   color: inherit;
   text-transform: none;
 }
+
+#ajax-loader img {
+    width: 120px;
+    height: 120px;
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#ajax-loader {
+    position: fixed;
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.8);
+}
