@@ -81,3 +81,105 @@
       <resources>
         <admin>
          <children>
+
+           <pincode translate="title" module="ambab_pincode">
+             <sort_order>100</sort_order>
+             <children>
+               <set_time>
+                 <title>pincode List</title>
+               </set_time>
+             </children>
+           </pincode>
+
+          </children>
+        </admin>
+      </resources>
+    </acl> -->
+    <acl>
+    <resources>
+    <admin>
+        <children>
+            <pincode module="pincode">
+                <title>Pincode</title>
+                <sort_order>-100</sort_order>
+                <children>
+                    <pincode module="pincode">
+                        <title>Pincode</title>
+                        <sort_order>1</sort_order>
+                        <action>admin_pincode/adminhtml_index</action>
+                    </pincode>
+                </children>
+            </pincode>
+        </children>
+    </admin>
+    </resources>
+</acl>
+
+	</adminhtml>
+	<global>
+		<models>
+			<pincode>
+				<class>Ambab_Pincode_Model</class>
+				<resourceModel>pincode_mysql4</resourceModel>
+			</pincode>
+			<pincode_mysql4>
+				<class>Ambab_Pincode_Model_Mysql4</class>
+				<entities>
+					<pincode>
+						<table>zipcode</table>
+					</pincode>
+				</entities>
+			</pincode_mysql4>
+		</models>
+		<resources>
+			<pincode_setup>
+				<setup>
+					<module>Ambab_Pincode</module>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</pincode_setup>
+			<pincode_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</pincode_write>
+			<pincode_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</pincode_read>
+		</resources>
+		<blocks>
+			<pincode>
+				<class>Ambab_Pincode_Block</class>
+			</pincode>
+		</blocks>
+		<helpers>
+			<pincode>
+				<class>Ambab_Pincode_Helper</class>
+			</pincode>
+		</helpers>
+	</global>
+   <!--  <acl>
+        <resources>
+	        <all>
+	          <title>Allow Everything</title>
+	        </all>
+	        <admin>
+	         <children>
+	            <customer translate="title" module="pincode">
+	              <children>
+	                <set_time translate="title">
+	                <title>pincode List</title>
+	                </set_time>
+	              </children>
+	            </customer>
+	          </children>
+	        </admin>
+        </resources>
+    </acl> -->
+    
+	 
+</config>

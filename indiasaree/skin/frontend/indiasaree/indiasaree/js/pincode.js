@@ -16,7 +16,7 @@ if(Validation) {
 
 jQuery(function(){
     var pincode = document.querySelectorAll("#pin");
-   console.log(pincode);
+   //console.log(pincode);
    document.querySelector("#pin").addEventListener("keypress", function (e) {
   if (e.which < 48 || e.which > 57)
   {
@@ -30,8 +30,6 @@ jQuery(function(){
 
         var pincode = jQuery('#pin').val();
         var urll = jQuery('#get_url').val();
-           
-        
 
 
         if (dataForm.validator.validate() ) {
@@ -40,23 +38,34 @@ jQuery(function(){
              url : urll+"/pincode/index/getPincodeByParam/pincode/"+pincode,
             dataType : "json",
             type : "GET",
+           beforeSend: function() {
+                  // setting a timeout
+                 // jQuery().addClass('loading');
+                //alert("here");
+                  jQuery('#ajax-loader').show();
+              },
             success : function(data)
             {
+              jQuery('#ajax-loader').hide();
                 console.log(data);
                 if(data.pincode == pincode && data.status == 1)
                 {
-                    jQuery("#message").html("Available within 4-5 Working Days");
+                    jQuery("#message").html("Available within 4-5 Working Days").css({"color":"red", "display":"block" });
                 }
                 else if(data.pincode == pincode && data.status == 0)
                 {
-                    jQuery("#message").html("Not Available");   
+                    jQuery("#message").html("Not Available").css({"color":"red", "display":"block" });   
                 }
                 else
                 {
-                    jQuery("#message").html("Delivery Not Available");   
+                    jQuery("#message").html("Delivery Not Available").css({"color":"red", "display":"block" });   
                 }
+                setTimeout(function() {
+                                jQuery('#message').hide();
+                            }, 5000);
                
-            } });
+            }
+             });
       
         }
     });

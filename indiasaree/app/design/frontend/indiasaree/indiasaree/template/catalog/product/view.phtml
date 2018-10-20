@@ -107,13 +107,7 @@
                         <?php echo $this->getChildHtml('sharing') ?>
                         
                     </div>
-                    <div style= "font-family: 'Open Sans', sans-serif;color: #666666; font-size: 16px;">
-                        <strong>
-                        <p> -Delivered within 7 to 11 days </p>
-                        <p> !-Cash on Delivery Avaliable.  </p>
-                        <p> -Free Shipping All Over India  </p>
-                        </strong>
-                    </div>
+                    
                     <?php echo $this->getChildHtml('extra_buttons') ?>
                 <?php elseif (!$_product->isSaleable()): ?>
                     <div class="add-to-box">
@@ -121,6 +115,7 @@
                         <?php echo $this->getChildHtml('sharing') ?>
                     </div>
                 <?php endif; ?>
+                
             </div>
 
             <?php echo $this->getChildHtml('related_products') ?>
@@ -131,6 +126,13 @@
             <?php endif;?>
         </form>
         <?php echo $this->getChildHtml('pincode') ?>
+        <div style= "font-family: 'Open Sans', sans-serif;color: #666666; font-size: 16px;">
+            <strong>
+            <p> -Delivered within 7 to 11 days </p>
+            <p> !-Cash on Delivery Avaliable.  </p>
+            <p> -Free Shipping All Over India  </p>
+            </strong>
+        </div>
 
         <script type="text/javascript">
         //<![CDATA[

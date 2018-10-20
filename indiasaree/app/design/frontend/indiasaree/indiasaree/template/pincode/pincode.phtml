@@ -1,8 +1,15 @@
 <form action="" name="pincode" id="pincode_form">
-	<input type= "text" placeholder = "Enter PinCode For Availability Check:" name="pincode" id="pin" class = "required-entry validate-pincode-length">
-	<input type="submit" name="pincode_submit" id="submit_pin" value="Submit">
+	<input type= "name" placeholder = "Check for Delivery" name="pincode" id="pin" class = "required-entry validate-pincode-length" size="16" style="padding: 10px 12px;">
+	<input type="submit" name="pincode_submit" id="submit_pin" value="Submit" style = " background-color: #3399cc; /* Green */
+    
+    color: white;
+    padding: 10px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;">
 	<input type="hidden" name="url" id="get_url" value="<?php echo Mage::getBaseUrl(); ?>">
-	<span id ="message"></span>
+	<span id ="message" style="display: block;"></span>
 </form>
 <script type="text/javascript">
 //<![CDATA[
