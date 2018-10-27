@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+	
+
+      <pincode_adminhtml_index_upload>
+        <reference name="content">
+            <block type="pincode/adminhtml_container" name="zipcodeForm" template="zipcode/form.phtml"/>
+        </reference>
+    </pincode_adminhtml_index_upload>
+
+</layout>
