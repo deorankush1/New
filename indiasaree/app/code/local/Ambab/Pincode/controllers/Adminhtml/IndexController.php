@@ -9,6 +9,140 @@ class Ambab_Pincode_Adminhtml_IndexController extends Mage_Adminhtml_Controller_
 	print_r($pincode);
 	echo "</pre>";
   }*/
+  public function uploadAction()
+    {
+
+        $this->loadLayout();
+        // $requestData = Mage::helper('adminhtml')->prepareFilterString($this->getRequest()->getParam('filter'));
+        // Mage::register('formData', $requestData);
+        $this->getLayout()->getBlock('head')->setTitle($this->__('Import Sizes'));
+
+        $this->renderLayout();
+//         var_dump(Mage::getSingleton('core/layout')->getUpdate()->getHandles());
+// exit("bailing early at ".__LINE__." in ".__FILE__);
+    }
+
+    public function saveeAction()
+    {
+
+       
+        $data = $this->getRequest()->getPost();
+    
+        if ($data = $this->getRequest()->getPost()) {
+            if (isset($_FILES['file']['name']) && $_FILES['file']['name'] != '') {
+
+                $mimes = array('application/vnd.ms-excel', 'text/plain', 'text/csv', 'text/tsv');
+                if (!in_array($_FILES['file']['type'], $mimes)) {
+                    Mage::getSingleton('adminhtml/session')->addError('Please upload valid CSV file.');
+                    $this->_redirectreferer();
+                    return;
+                }
+                try {
+                    $path = Mage::getBaseDir() . DS . 'media' . DS . 'ZipCode';
+                    if (!file_exists($path)) {
+                        mkdir($path, 0777, true);
+                    }
+                    $currentTimestamp = Mage::getModel('core/date')->timestamp(time());
+                    $date = date('Y_m_d_H_i_s_', $currentTimestamp);
+
+                    $fname = $date . $_FILES['file']['name'];
+                    $fullname = $path . DS . $fname;
+                    $uploader = new Varien_File_Uploader('file');
+                    $uploader->setAllowedExtensions(array('CSV', 'csv'));
+                    $uploader->setAllowCreateFolders(true);
+                    $uploader->setAllowRenameFiles(false);
+                    $uploader->setFilesDispersion(false);
+                    $uploader->save($path, $fname); //save the
+                } catch (Exception $e) {
+                	echo "herer";
+                	exit;
+                    Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                    $this->_redirectreferer();
+                    return;
+                }
+            } else {
+                Mage::getSingleton('adminhtml/session')->addError('Please select the file to upload');
+                $this->_redirectreferer();
+                return;
+            }
+        }
+
+        $this->importData($fullname);
+
+        $this->_redirect('*/*/');
+
+        return;
+    }
+
+    protected function importData($filePath)
+    {
+
+        if (!file_exists($filePath)) {
+            Mage::log("File doesn't exist - " . $filePath, null, 'ZipCode.log');
+            return false;
+        }
+
+        $resource = Mage::getSingleton('core/resource');
+        $writeResource = $resource->getConnection('core_write');
+        $tableName = $resource->getTableName('pincode/pincode');
+        $connection = Mage::getSingleton('core/resource')->getConnection('core_write');
+        $connection->query('TRUNCATE TABLE `pincode`');
+
+        $fileHandle = fopen($filePath, "r");
+
+        $i = 0;
+        while (!feof($fileHandle)) {
+            $line = fgets($fileHandle);
+            $row = explode(",", $line);
+            if ($i == 0) {
+                $i++;
+                continue;
+            }
+            if (isset($row[1]) && $row[1] != '') {
+                $rowRecord = "INSERT INTO $tableName (pincode, status) VALUES (:pincode, :status)";
+                
+                $bindValues = array(
+                    // 'zip_code' => $row[0],
+                    'pincode' => $row[0],
+                    'status' => $row[1]
+                );
+                $writeResource->query($rowRecord, $bindValues);
+                $i++;
+            }
+        }
+
+        fclose($fileHandle);
+
+        Mage::getSingleton('adminhtml/session')->addSuccess($i-1 . ' record(s) successfully imported!');
+
+        Mage::log("Imported file - " . $filePath, null, 'Zipcode.log');
+    }
+
+
+    public function massDeleteAction() {
+
+        $requestIds = $this->getRequest()->getParam('zipcodeIds');
+
+        if(!is_array($requestIds)) {
+            Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select reqeust(s)'));
+        } else {
+            try {
+                foreach ($requestIds as $requestId) {
+                    $RequestData = Mage::getModel('pincode/pincode')->load($requestId);                    
+                    $RequestData->delete();                    
+                }
+                Mage::getSingleton('adminhtml/session')->addSuccess(
+                    Mage::helper('adminhtml')->__(
+                        'Total of %d record(s) were successfully deleted', count($requestIds)
+                    )
+                );
+            } catch (Exception $e) {
+                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            }
+        }
+        $this->_redirect('*/*/');
+    }
+
 
   	protected function _isAllowed()
 {

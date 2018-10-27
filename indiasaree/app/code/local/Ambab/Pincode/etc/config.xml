@@ -23,99 +23,8 @@
 		            </updates>
 		        </layout>
 	</frontend>
-	<admin>
-		<routers>
-			<pincode>
-				<use>admin</use>
-				<args>
-					<module>Ambab_Pincode</module>
-					<frontName>admin_pincode</frontName>
-				</args>
-			</pincode>
-		</routers>
-	</admin>
-	<global>
-		<helpers>
-			<pincode>
-				<class>Ambab_Pincode_Helper</class>
-			</pincode>
-		</helpers>
-	</global>
-	<adminhtml>
-		<menu>
-			<pincode module="pincode">
-				<title>Pincode</title>
-				<sort_order>100</sort_order>
-				<children>
-					<pincode module="pincode">
-						<title>Pincode</title>
-						<sort_order>0</sort_order>
-						<action>admin_pincode/adminhtml_index</action>
-					</pincode>
-				</children>
-			</pincode>
-		</menu>
-		<!-- <acl>
-			       <resources>
-		            <all>
-		                <title>Allow Everything</title>
-		            </all>
-		            <admin>
-		                <children>
-		                    <pincode>
-		                        <title>Pincode Module</title>
-		                        <sort_order>200</sort_order>
-		                    </pincode>
-		                </children>
-		            </admin>
-			        </resources>   
-			    </acl> -->
-	   <!--  <layout>
-	       <updates>
-	           <pincode>
-	               <file>pincode_check.xml</file>
-	           </pincode>
-	       </updates>
-	   </layout> -->
-	  <!--  <acl>
-      <resources>
-        <admin>
-         <children>
+	
 
-           <pincode translate="title" module="ambab_pincode">
-             <sort_order>100</sort_order>
-             <children>
-               <set_time>
-                 <title>pincode List</title>
-               </set_time>
-             </children>
-           </pincode>
-
-          </children>
-        </admin>
-      </resources>
-    </acl> -->
-    <acl>
-    <resources>
-    <admin>
-        <children>
-            <pincode module="pincode">
-                <title>Pincode</title>
-                <sort_order>-100</sort_order>
-                <children>
-                    <pincode module="pincode">
-                        <title>Pincode</title>
-                        <sort_order>1</sort_order>
-                        <action>admin_pincode/adminhtml_index</action>
-                    </pincode>
-                </children>
-            </pincode>
-        </children>
-    </admin>
-    </resources>
-</acl>
-
-	</adminhtml>
 	<global>
 		<models>
 			<pincode>
@@ -162,24 +71,44 @@
 			</pincode>
 		</helpers>
 	</global>
-   <!--  <acl>
-        <resources>
-	        <all>
-	          <title>Allow Everything</title>
-	        </all>
-	        <admin>
-	         <children>
-	            <customer translate="title" module="pincode">
-	              <children>
-	                <set_time translate="title">
-	                <title>pincode List</title>
-	                </set_time>
-	              </children>
-	            </customer>
-	          </children>
-	        </admin>
-        </resources>
-    </acl> -->
+
+    <admin>
+		<routers>
+			<pincode>
+				<use>admin</use>
+				<args>
+					<module>Ambab_Pincode</module>
+					<frontName>admin_pincode</frontName>
+				</args>
+			</pincode>
+		</routers>
+	</admin>
+
+	<adminhtml>
+		<menu>
+			<pincode module="pincode">
+				<title>Pincode</title>
+				<sort_order>100</sort_order>
+				<children>
+					<pincode module="pincode">
+						<title>Pincode</title>
+						<sort_order>0</sort_order>
+						<action>admin_pincode/adminhtml_index</action>
+					</pincode>
+				</children>
+			</pincode>
+		</menu>
+		
+
+		<layout>
+            <updates>
+                <pincode>
+                    <file>zipcode.xml</file>
+                </pincode>
+            </updates>
+        </layout>
+
+	</adminhtml>
     
 	 
 </config>
