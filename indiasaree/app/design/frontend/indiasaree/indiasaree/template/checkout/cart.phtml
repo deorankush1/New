@@ -47,7 +47,7 @@
     </div>
     <?php echo $this->getMessagesBlock()->toHtml() ?>
     <?php echo $this->getChildHtml('form_before') ?>
-    <form action="<?php echo $this->getFormActionUrl() ?>" method="post">
+    <form action="" method="post" id="cartItem" >
         <?php echo $this->getBlockHtml('formkey'); ?>
         <table id="shopping-cart-table" class="cart-table data-table">
             <col width="1" />
@@ -110,9 +110,9 @@
 
                         <button type="submit" name="update_cart_action" data-cart-empty value="empty_cart" title="<?php echo $this->quoteEscape($this->__('Empty Cart')); ?>" class="button2 btn-empty" id="empty_cart_button"><span><span><?php echo $this->__('Empty Cart'); ?></span></span></button>
 
-                        <button type="submit" name="update_cart_action" data-cart-item-update value="update_qty" title="<?php echo $this->quoteEscape($this->__('Update Shopping Cart')); ?>" class="button2 btn-update"><span><span><?php echo $this->__('Update Shopping Cart'); ?></span></span></button>
+                    <!--     <button type="submit" name="update_cart_action" data-cart-item-update value="update_qty" title="<?php // echo $this->quoteEscape($this->__('Update Shopping Cart')); ?>" class="button2 btn-update"><span><span><?php // echo $this->__('Update Shopping Cart'); ?></span></span></button>
 
-                        <span class="or">-<?php echo $this->__('or'); ?>-</span>
+                        <span class="or">-<?php echo $this->__('or'); ?>-</span> -->
 
                         <?php if($this->getContinueShoppingUrl()): ?>
                             <button type="button" title="<?php echo $this->quoteEscape($this->__('Continue Shopping')) ?>" class="button2 btn-continue" onclick="setLocation('<?php echo Mage::helper('core')->quoteEscape($this->getContinueShoppingUrl()) ?>')"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
@@ -148,7 +148,60 @@
             <?php endforeach ?>
             </tbody>
         </table>
-        <script type="text/javascript">decorateTable('shopping-cart-table')</script>
+        <script type="text/javascript">
+            jQuery(document).ready(function(){
+  var baseUrl = window.location.origin;
+  var qtyVal = jQuery('.qty').val();
+  if(qtyVal == 1){
+    jQuery('.qty').prev().css({'visibility' : 'hidden'});
+  }
+
+  jQuery(".btn-update").on("click", function(e) {
+    e.preventDefault();
+    let data = jQuery("#cartItem").serializeArray();
+    data.push({name:"update_cart_action", value:"update_qty"});
+    
+    jQuery.ajax({
+      type:"POST",
+      url:baseUrl+'/checkout/cart/updatePost/',
+      data:{data},
+       beforeSend: function() {
+                    // setting a timeout
+                   // jQuery().addClass('loading');
+                  //alert("here");
+                    jQuery('#ajax-loader').show();
+                },
+      success: function(data){ 
+          //console.log( url );
+        jQuery('#ajax-loader').hide();
+        var htmldata = data;
+
+        
+        var template = jQuery.parseHTML(htmldata);
+        console.log(template);
+        var qtyVal = jQuery(template).find('.qty').val();
+        if(qtyVal > 1){
+          jQuery(template).find('.qty').prev().css({'visibility' : 'visible'});
+        }else{
+          jQuery(template).find('.qty').prev().css({'visibility' : 'hidden'});
+        }
+
+        var productContent = jQuery(template).find('.product-content').html();
+        var content = jQuery(template).find('.cart-table-wrapper').html();
+        
+        jQuery('.cart-table-wrapper').html(content);
+        jQuery('.product-content').html(productContent);
+      }
+    });
+  });
+  
+  jQuery(document).on('click','.opc-messages-action .button',function(){
+    jQuery('.credit-overlay').hide();
+    jQuery('.opc-message-container').html('');
+  });
+
+});
+        </script>
     </form>
 
     <?php echo $this->getChildHtml('shopping.cart.table.after'); ?>

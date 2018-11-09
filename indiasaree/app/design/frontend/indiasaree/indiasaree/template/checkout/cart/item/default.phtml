@@ -205,28 +205,14 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
         <?php endif; ?>
     <?php endif; ?>
     <td class="product-cart-actions" data-rwd-label="<?php echo $this->__('Qty'); ?>">
-        <input type="text" pattern="\d*" name="cart[<?php echo $_item->getId() ?>][qty]" value="<?php echo $this->getQty() ?>" size="4"
-               data-cart-item-id="<?php echo $this->jsQuoteEscape($_item->getSku()) ?>"
-               title="<?php echo Mage::helper('core')->quoteEscape($this->__('Qty')) ?>" class="input-text qty" maxlength="12" />
-
-        <button type="submit" name="update_cart_action" data-cart-item-update value="update_qty" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Update')); ?>" class="button btn-update"><span><span><?php echo $this->__('Update'); ?></span></span>
-        </button>
-
-        <ul class="cart-links">
-            <?php if ($isVisibleProduct): ?>
-                <li>
-                    <a href="<?php echo $this->getConfigureUrl() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Edit item parameters')) ?>"><?php echo $this->__('Edit') ?></a>
-                </li>
-            <?php endif ?>
-
-            <?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
-            <li>
-                <?php if ($isVisibleProduct): ?>
-                    <a href="<?php echo $this->helper('wishlist')->getMoveFromCartUrl($_item->getId()); ?>" class="link-wishlist use-ajax"><?php echo $this->__('Move to wishlist'); ?></a>
-                <?php endif ?>
-            </li>
-            <?php endif ?>
-        </ul>
+         <div class="qunatity">
+        <label class="hidden">quantity:</label>
+        <div class="quantDiv">
+            <a class="minus" href="javascript:;" onclick="qtyDown(<?php echo $_item->getId() ?>,this,1)"> - </a>
+            <input type="text" pattern="\d*" maxlength="12" id="cart[<?php echo $_item->getId() ?>][qty]" name="cart[<?php echo $_item->getId() ?>][qty]" value="<?php echo $this->getQty() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Qty')) ?>" class="input-text qty" />
+            <a class="add" href="javascript:;" onclick="qtyUp(<?php echo $_item->getId() ?>,1)"> + </a>
+        </div>
+    </div>
 
     </td>
 
@@ -330,3 +316,64 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
 </tr>
 
 
+
+<script type="text/javascript">
+    function qtyDown(id,action,flag){
+  var qty_el = document.getElementById('cart['+id+'][qty]');
+  var qty = qty_el.value; 
+
+    if( qty == 2) {
+        jQuery(action).css({
+            'visibility' : 'hidden'
+        });
+    }
+    if( !isNaN( qty ) && qty > 0 ){
+        qty_el.value--;
+    }         
+    if(flag==1)
+    {
+        jQuery( ".btn-update" ).trigger( "click" );
+    }
+    return false;
+     
+}
+function qtyUp(id,flag){
+  var qty_el = document.getElementById('cart['+id+'][qty]');
+  var qty = qty_el.value;
+   
+    if( !isNaN( qty )) {
+        qty_el.value++;
+    }
+    jQuery('a.add').css({
+            'visibility' : 'visible'
+    });
+    if(flag==1)
+    {
+        jQuery( ".btn-update" ).trigger( "click" );
+    }
+    return false;
+}
+
+jQuery( ".qty" ).each(function() {
+        qty=jQuery(this).val();
+
+  if (qty > 1)
+   {
+    jQuery(this).prev().css({
+            'visibility' : 'visible'
+        });
+  }
+  else
+  {
+    jQuery(this).prev().css({
+            'visibility' : 'hidden'
+        });
+  }
+  });
+
+
+
+  
+
+
+</script>
