@@ -24,7 +24,7 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<form id="discount-coupon-form" action="<?php echo $this->getFormActionUrl() ?>" method="post">
+<form id="discount-coupon-form" action="<?php //echo $this->getFormActionUrl() ?>" method="post">
     <div class="discount">
         <h2><?php echo $this->__('Discount Codes') ?></h2>
         <div class="discount-form">
@@ -33,28 +33,112 @@
             <div class="field-wrapper">
                 <input class="input-text" type="text" id="coupon_code" name="coupon_code" value="<?php echo $this->escapeHtml($this->getCouponCode()) ?>" />
                 <div class="button-wrapper">
-                    <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Apply')) ?>" class="button2" onclick="discountForm.submit(false)" value="<?php echo $this->__('Apply') ?>"><span><span><?php echo $this->__('Apply') ?></span></span></button>
-                    <?php if(strlen($this->getCouponCode())): ?>
-                        <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Cancel')) ?>" class="button2 cancel-coupon" onclick="discountForm.submit(true)" value="<?php echo $this->__('Cancel') ?>"><span><span><?php echo $this->__('Cancel') ?></span></span>
-                        </button>
-                    <?php endif;?>
+                    <?php if(!strlen($this->getCouponCode())): ?>
+                <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('proceed')) ?>" class="button proceed-btn chk-btn cart-coupon-btn" id="proceed-to-cnfrm"  value="<?php echo Mage::helper('core')->quoteEscape($this->__('proceed')) ?>"   style="display: block;"><?php echo $this->__('Apply') ?></button>
+                <?php endif;?>
+
+
+                <?php //if(strlen($this->getCouponCode())): if($coupon_code) ?>
+                    <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Cancel Coupon')) ?>" 
+                    class="button cancel-Coupon chk-btn cart-coupon-btn" id="proceed-to-cancel"  isRemove="1"  style="display: none;" value="<?php echo Mage::helper('core')->quoteEscape($this->__('Cancel Coupon')) ?>"><span><span><?php echo $this->__('Cancel') ?></span></span></button>
+                <?php //endif;?>
+
+
+                <?php //if(strlen($this->getCouponCode())): if($coupon_code)
+                         $appliedRuleIds = Mage::getSingleton('checkout/session')->getQuote()->getAppliedRuleIds();
+                        if($appliedRuleIds != '') {?>
+                        <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Cancel Coupon')) ?>" class="button cancel-Coupon chk-btn cart-coupon-btn" id="proceed-to-cancel1"  isRemove="1"  style="display: block;" value="<?php echo Mage::helper('core')->quoteEscape($this->__('Cancel Coupon')) ?>"><span><span><?php echo $this->__('Cancel') ?></span></span></button>
+                        <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('proceed')) ?>" class="button proceed-btn chk-btn cart-coupon-btn" id="proceed-to-cnfrm"  value="<?php echo Mage::helper('core')->quoteEscape($this->__('proceed')) ?>"   style="display: none;"><?php echo $this->__('Apply') ?></button>
+                <?php } ?>
                 </div>
             </div>
         </div>
+        <div class="renderdata"></div>
     </div>
 </form>
+
+
 <script type="text/javascript">
-//<![CDATA[
-var discountForm = new VarienForm('discount-coupon-form');
-discountForm.submit = function (isRemove) {
-    if (isRemove) {
-        $('coupon_code').removeClassName('required-entry');
-        $('remove-coupone').value = "1";
-    } else {
-        $('coupon_code').addClassName('required-entry');
-        $('remove-coupone').value = "0";
-    }
-    return VarienForm.prototype.submit.bind(discountForm)();
+    function couponcodevalid(isRemove){
+  if (isRemove) {
+
+      jQuery('#coupon_code').removeClass('required-entry');
+      jQuery('#remove-coupone').val(1);
+  } else {
+
+      jQuery('#coupon_code').addClass('required-entry');
+      jQuery('#remove-coupone').val(0);
+  }
+  var valid = jQuery('#discount-coupon-form').validate({
+      messages:{
+          "coupon_code": {
+          required: "Enter coupon code.",
+          }
+      }
+  });
 }
-//]]>
+
+    jQuery(document).on('click', '.cart-coupon-btn' ,function(e){
+  e.preventDefault();
+  jQuery("#proceed-to-cancel1").css("display","none");
+  jQuery("#proceed-to-cnfrm1").css("display","block");
+  var baseUrl='<?php echo Mage::getBaseUrl()?>';
+  var coupon_code = jQuery("#coupon_code").val(); 
+  var remove = jQuery(this).attr("isRemove");
+        
+  if (remove == 1) {
+      jQuery("#remove-coupone").val("1");
+  }
+  else{
+      jQuery("#remove-coupone").val("0");
+  }
+  var hiddenRemove = jQuery("#remove-coupone").val();
+  if (coupon_code == ''){
+    couponcodevalid(0);
+    jQuery('.renderdata').html("This is required field.").css('color','red').show();
+  }
+  else{ 
+    jQuery.ajax({
+      type:"POST",
+      url: baseUrl + '/checkout/cart/couponPost',
+      dataType:"json",
+      data:{coupon_code : coupon_code, remove : hiddenRemove, from : 'cart'},
+      
+      beforeSend: function(){
+          // Code to display spinner
+           jQuery('#ajax-loader').show();
+      },
+      
+      success:function(data){ 
+        jQuery('#ajax-loader').hide();
+        if (data.status == "success" ) {
+            jQuery("#proceed-to-cnfrm").css("display","none");
+            jQuery("#proceed-to-cancel").css("display","block");
+            jQuery('.renderdata').html(data.message).css('color','green').show();
+            jQuery("#shopping-cart-totals-table").replaceWith(data.review);
+            jQuery( ".cart-table-wrapper" ).wrap( "<div id='shopping-cart-totals-table'></div>" );
+
+            jQuery('#coupon_code').prop('disabled', true);
+        }
+        else if( data.status == "cancel" ){
+            jQuery("#proceed-to-cancel").css("display","none");
+            jQuery("#proceed-to-cnfrm").css("display","block");
+            couponcodevalid(1);
+            jQuery('.renderdata').html(data.message).css('color','green').show();
+            // jQuery("#shopping-cart-totals-table").load(newurl);
+            jQuery("#shopping-cart-totals-table").replaceWith(data.review);
+            jQuery( ".cart-table-wrapper" ).wrap( "<div id='shopping-cart-totals-table'></div>" );
+            jQuery("#coupon_code").val('');  
+            jQuery('#coupon_code').prop('disabled', false);                              
+        }else{
+             jQuery(".renderdata").show()
+            jQuery('.renderdata').html(data.message).css('color','red');
+        }
+      }
+    });                
+  }   
+  setTimeout(function() {
+      jQuery(".renderdata").hide()
+  }, 4000);
+});
 </script>
