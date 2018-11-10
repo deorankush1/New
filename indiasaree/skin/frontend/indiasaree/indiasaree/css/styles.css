@@ -10684,3 +10684,14 @@ div.calendar table td.button {
     z-index: 9999;
     background: rgba(0, 0, 0, 0.8);
 }
+
+/*product page pincode validation*/
+#pincode_form{
+float: left;
+padding-top:24px;
+}
+
+#advice-required-entry-pin{
+  position: absolute;
+}
+
