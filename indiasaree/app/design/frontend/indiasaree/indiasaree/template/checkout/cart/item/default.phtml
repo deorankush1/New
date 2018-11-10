@@ -205,15 +205,13 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
         <?php endif; ?>
     <?php endif; ?>
     <td class="product-cart-actions" data-rwd-label="<?php echo $this->__('Qty'); ?>">
-         <div class="qunatity">
+        
         <label class="hidden">quantity:</label>
-        <div class="quantDiv">
+        
             <a class="minus" href="javascript:;" onclick="qtyDown(<?php echo $_item->getId() ?>,this,1)"> - </a>
             <input type="text" pattern="\d*" maxlength="12" id="cart[<?php echo $_item->getId() ?>][qty]" name="cart[<?php echo $_item->getId() ?>][qty]" value="<?php echo $this->getQty() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Qty')) ?>" class="input-text qty" />
             <a class="add" href="javascript:;" onclick="qtyUp(<?php echo $_item->getId() ?>,1)"> + </a>
-        </div>
-    </div>
-
+       
     </td>
 
     <!--Sub total starts here -->
@@ -318,25 +316,29 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
 
 
 <script type="text/javascript">
-    function qtyDown(id,action,flag){
+    //var baseUrl = window.location.origin;
+    
+function qtyDown(id,action,flag){
   var qty_el = document.getElementById('cart['+id+'][qty]');
   var qty = qty_el.value; 
 
-    if( qty == 2) {
-        jQuery(action).css({
-            'visibility' : 'hidden'
-        });
-    }
-    if( !isNaN( qty ) && qty > 0 ){
-        qty_el.value--;
-    }         
-    if(flag==1)
-    {
-        jQuery( ".btn-update" ).trigger( "click" );
-    }
-    return false;
+  if( qty == 2) {
+    jQuery(action).css({
+        'visibility' : 'hidden'
+    });
+  }
+  if( !isNaN( qty ) && qty > 0 ){
+    qty_el.value--;
+  }         
+  if(flag==1)
+  {
+    jQuery('#ajax-loader').show();
+    jQuery( ".btn-update" ).trigger( "click" );
+  }
+  return false;
      
 }
+
 function qtyUp(id,flag){
   var qty_el = document.getElementById('cart['+id+'][qty]');
   var qty = qty_el.value;
@@ -344,36 +346,21 @@ function qtyUp(id,flag){
     if( !isNaN( qty )) {
         qty_el.value++;
     }
-    jQuery('a.add').css({
-            'visibility' : 'visible'
-    });
     if(flag==1)
     {
+      jQuery('#ajax-loader').show();
+      jQuery('a.minus').css({
+              'visibility' : 'visible'
+      });
         jQuery( ".btn-update" ).trigger( "click" );
     }
     return false;
 }
 
-jQuery( ".qty" ).each(function() {
-        qty=jQuery(this).val();
-
-  if (qty > 1)
-   {
-    jQuery(this).prev().css({
-            'visibility' : 'visible'
-        });
-  }
-  else
-  {
-    jQuery(this).prev().css({
-            'visibility' : 'hidden'
-        });
-  }
-  });
-
-
-
-  
-
-
+var qtyVal = jQuery('.qty').val();
+        if(qtyVal == 1){
+            jQuery('.qty').prev().css({'visibility' : 'hidden'});
+        }
+       
+           
 </script>

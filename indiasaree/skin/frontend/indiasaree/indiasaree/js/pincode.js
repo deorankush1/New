@@ -12,6 +12,10 @@ if(Validation) {
    ]
   
    ])
+  setTimeout(function() {
+            //jQuery('#message').hide();
+            jQuery('.validation-advice').hide();
+            }, 5000);
 }
 
 jQuery(function(){
@@ -62,6 +66,7 @@ jQuery(function(){
                 }
                 setTimeout(function() {
                                 jQuery('#message').hide();
+                                jQuery('.validation-advice').hide();
                             }, 5000);
                
             }

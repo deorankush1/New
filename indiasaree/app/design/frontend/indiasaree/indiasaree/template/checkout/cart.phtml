@@ -36,13 +36,13 @@
     <div class="page-title title-buttons">
         <h1><?php echo $this->__('Shopping Cart') ?></h1>
         <?php if(!$this->hasError()): ?>
-        <ul class="checkout-types top">
+        <?php /*<ul class="checkout-types top">
         <?php foreach ($this->getMethods('top_methods') as $method): ?>
             <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
             <li><?php echo $methodHtml; ?></li>
             <?php endif; ?>
         <?php endforeach; ?>
-        </ul>
+        </ul>*/?>
         <?php endif; ?>
     </div>
     <?php echo $this->getMessagesBlock()->toHtml() ?>
@@ -101,23 +101,23 @@
                 </tr>
                 <?php endif; ?>
             </thead>
-            <tfoot>
+           <?php /* <tfoot>
                 <tr>
                     <td colspan="50" class="a-right cart-footer-actions">
 
                         <!-- Make this button the first responder rather than empty cart -->
-                        <button type="submit" style="visibility:hidden;" data-cart-item-update name="update_cart_action" value="update_qty" title="<?php echo $this->quoteEscape($this->__('Update Shopping Cart')); ?>" class="button2 btn-update"><span><span><?php echo $this->__('Update Shopping Cart'); ?></span></span></button>
+                        
 
                         <button type="submit" name="update_cart_action" data-cart-empty value="empty_cart" title="<?php echo $this->quoteEscape($this->__('Empty Cart')); ?>" class="button2 btn-empty" id="empty_cart_button"><span><span><?php echo $this->__('Empty Cart'); ?></span></span></button>
 
-                    <!--     <button type="submit" name="update_cart_action" data-cart-item-update value="update_qty" title="<?php // echo $this->quoteEscape($this->__('Update Shopping Cart')); ?>" class="button2 btn-update"><span><span><?php // echo $this->__('Update Shopping Cart'); ?></span></span></button>
+                        
 
-                        <span class="or">-<?php echo $this->__('or'); ?>-</span> -->
+                        <span class="or">-<?php echo $this->__('or'); ?>-</span>
 
                         <?php if($this->getContinueShoppingUrl()): ?>
                             <button type="button" title="<?php echo $this->quoteEscape($this->__('Continue Shopping')) ?>" class="button2 btn-continue" onclick="setLocation('<?php echo Mage::helper('core')->quoteEscape($this->getContinueShoppingUrl()) ?>')"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
                         <?php endif; ?>
-                        <!--[if lt IE 8]>
+                        [if lt IE 8]>
                         <input type="hidden" id="update_cart_action_container" data-cart-item-update />
                         <script type="text/javascript">
                         //<![CDATA[
@@ -138,70 +138,18 @@
                             });
                         //]]>
                         </script>
-                        <![endif]-->
+                        <![endif]
                     </td>
                 </tr>
-            </tfoot>
+            </tfoot>*/ ?>
             <tbody>
             <?php foreach($this->getItems() as $_item): ?>
                 <?php echo $this->getItemHtml($_item) ?>
             <?php endforeach ?>
             </tbody>
         </table>
-        <script type="text/javascript">
-            jQuery(document).ready(function(){
-  var baseUrl = window.location.origin;
-  var qtyVal = jQuery('.qty').val();
-  if(qtyVal == 1){
-    jQuery('.qty').prev().css({'visibility' : 'hidden'});
-  }
-
-  jQuery(".btn-update").on("click", function(e) {
-    e.preventDefault();
-    let data = jQuery("#cartItem").serializeArray();
-    data.push({name:"update_cart_action", value:"update_qty"});
-    
-    jQuery.ajax({
-      type:"POST",
-      url:baseUrl+'/checkout/cart/updatePost/',
-      data:{data},
-       beforeSend: function() {
-                    // setting a timeout
-                   // jQuery().addClass('loading');
-                  //alert("here");
-                    jQuery('#ajax-loader').show();
-                },
-      success: function(data){ 
-          //console.log( url );
-        jQuery('#ajax-loader').hide();
-        var htmldata = data;
-
-        
-        var template = jQuery.parseHTML(htmldata);
-        console.log(template);
-        var qtyVal = jQuery(template).find('.qty').val();
-        if(qtyVal > 1){
-          jQuery(template).find('.qty').prev().css({'visibility' : 'visible'});
-        }else{
-          jQuery(template).find('.qty').prev().css({'visibility' : 'hidden'});
-        }
-
-        var productContent = jQuery(template).find('.product-content').html();
-        var content = jQuery(template).find('.cart-table-wrapper').html();
-        
-        jQuery('.cart-table-wrapper').html(content);
-        jQuery('.product-content').html(productContent);
-      }
-    });
-  });
-  
-  jQuery(document).on('click','.opc-messages-action .button',function(){
-    jQuery('.credit-overlay').hide();
-    jQuery('.opc-message-container').html('');
-  });
-
-});
-        </script>
+        <button style="display:none;visibility:hidden;" type="submit" name="update_cart_action" value="update_qty" title="<?php echo $this->__('Update'); ?>" class="btn-update"></button>
+        <script type="text/javascript">decorateTable('shopping-cart-table')</script>
     </form>
 
     <?php echo $this->getChildHtml('shopping.cart.table.after'); ?>
@@ -215,7 +163,7 @@
     <div class="cart-totals-wrapper">
         <div class="cart-totals">
             <?php echo $this->getChildHtml('totals'); ?>
-            <?php /* if(!$this->hasError()): ?>
+            <?php if(!$this->hasError()): ?>
             <ul class="checkout-types bottom">
             <?php foreach ($this->getMethods('methods') as $method): ?>
                 <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
@@ -223,8 +171,49 @@
                 <?php endif; ?>
             <?php endforeach; ?>
             </ul>
-            <?php endif; */?>
+            <?php endif; ?>
         </div>
     </div>
     <?php echo $this->getChildHtml('crosssell') ?>
 </div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+       
+        
+
+
+        jQuery(".btn-update").on("click", function(e) {
+          //alert("here12");
+           var baseUrl='<?php echo Mage::getBaseUrl()?>';
+            let data = jQuery("#cartItem").serializeArray();
+            data.push({name:"update_cart_action", value:"update_qty"});
+           // alert('here');
+            e.preventDefault();
+
+            jQuery.ajax({
+              type:"POST",
+              url:baseUrl+'/checkout/cart/updatePost/',
+              data:data,
+              success: function(data){ 
+                jQuery('#ajax-loader').hide();
+                var htmldata = data;
+                
+                var template = jQuery.parseHTML(htmldata);
+                var qtyVal = jQuery(template).find('.qty').val();
+                if(qtyVal > 1){
+                  jQuery(template).find('.qty').prev().css({'visibility' : 'visible'});
+                }else{
+                  jQuery(template).find('.qty').prev().css({'visibility' : 'hidden'});
+                }
+
+                var productContent = jQuery(template).find('#shopping-cart-table').html();
+                var content = jQuery(template).find('.cart-totals').html();
+                jQuery('.product-cart-actions').load();
+                jQuery('.cart-totals').html(content);
+                jQuery('#shopping-cart-table').html(productContent);
+              }
+            });
+        });
+    });
+</script>
