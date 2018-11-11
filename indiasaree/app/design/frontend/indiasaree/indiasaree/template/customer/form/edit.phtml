@@ -40,9 +40,18 @@
             <li>
                 <label for="email" class="required"><em>*</em><?php echo $this->__('Email Address') ?></label>
                 <div class="input-box">
-                    <input type="email" autocapitalize="off" autocorrect="off" spellcheck="false" name="email" id="email" value="<?php echo $this->escapeHtml($this->getCustomer()->getEmail()) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Email Address')) ?>" class="input-text required-entry validate-email" />
+                    <input type="email" readonly autocapitalize="off" autocorrect="off" spellcheck="false" name="email" id="email" value="<?php echo $this->escapeHtml($this->getCustomer()->getEmail()) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Email Address')) ?>" class="input-text required-entry validate-email" />
                 </div>
             </li>
+
+            <li>
+                <label for="mobile_number" class="required"><em>*</em><?php echo $this->__('mobile Number') ?></label>
+                <div class="input-box">
+                     <input type="text" autocapitalize="off" autocorrect="off" spellcheck="false" name="mobile_number" id="mobile_number" value="<?php echo $this->escapeHtml($this->getCustomer()->getmobileNumber()) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('mobile Number')) ?>" class="input-text required-entry" />
+                </div>
+            </li>
+
+
         <?php $_dob = $this->getLayout()->createBlock('customer/widget_dob') ?>
         <?php if ($_dob->isEnabled()): ?>
             <li><?php echo $_dob->setDate($this->getCustomer()->getDob())->toHtml() ?></li>

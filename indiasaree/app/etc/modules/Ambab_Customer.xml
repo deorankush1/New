@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Ambab_Customer>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends><Mage_Customer/></depends>
+        </Ambab_Customer>
+    </modules>
+</config> 

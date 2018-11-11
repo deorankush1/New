@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <Ambab module="ambab_sms">
+            <label>Ambab Extensions</label>
+            <sort_order>1000</sort_order>
+        </Ambab>
+    </tabs>
+    <sections>
+        <smspro module="adminhtml">
+            <label>SMS Pro (Springedge gateway)</label>
+            <tab>Ambab</tab>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general>
+                    <label>General</label>
+                    <sort_order>1000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <baseurl>
+                            <label>Base API Url</label>
+                            <comment>Please enter the base API gateway url here</comment>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>0</sort_order>
+                        </baseurl>
+                        <active>
+                            <label>Enable Production Mode</label>
+                            <comment>If set to yes, the production mode will be enabled and sms would be sent for selected events.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>3</sort_order>
+                        </active>
+                        <username>
+                            <label>SMS Springedge Username</label>
+                            <frontend_type>text</frontend_type>
+                            <comment>Type in your Springedge account userid</comment>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>1</sort_order>
+                        </username>
+                        <password>
+                            <label>SMS Springedge Password</label>
+                            <frontend_type>password</frontend_type>
+                            <comment>Type in your Springedge account password</comment>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>2</sort_order>
+                        </password>
+                        <overridednd>
+                            <label>Override DND</label>
+                            <comment>If set to yes, sms will be sent to the customer phone even if he has DND service on.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>4</sort_order>
+                        </overridednd>
+                    </fields>
+                </general>
+ 
+                <smsevents>
+                    <label>SMS Events</label>
+                    <sort_order>2000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <new_customer>
+                            <label>New Customer Registration</label>
+                            <comment>If set to yes, welcome sms will be sent to customers upon registration.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>1</sort_order>
+                        </new_customer>
+                        <new_order>
+                            <label>New Order</label>
+                            <comment>If set to yes, sms will be sent to customers when their order is received.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>2</sort_order>
+                        </new_order>
+                        <shipment>
+                            <label>Shipment Sent</label>
+                            <comment>If set to yes, sms will be sent to customers when their order is shipped.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>3</sort_order>
+                        </shipment>
+                    </fields>
+                </smsevents>
+ 
+                <templates>
+                    <label>SMS Templates</label>
+                    <sort_order>3000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <new_customer_template>
+                            <label>New Customer Registration</label>
+                            <comment>Available Variables:{id}, {phone}, {name}, {firstname}, {email}</comment>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>0</sort_order>
+                        </new_customer_template>
+                        <new_invoice_template>
+                            <label>New Invoice</label>
+                            <comment>Available Variables:{id}, {phone}, {name}, {firstname}</comment>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>0</sort_order>
+                        </new_invoice_template>
+                        <new_order_template>
+                            <label>New Order Received</label>
+                            <comment>Available Variables:{orderid}, {phone}, {name}, {firstname}, {email}</comment>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>1</sort_order>
+                        </new_order_template>
+                        <shipment_template>
+                            <label>Shipment Sent</label>
+                            <comment>Available Variables:{shipmentid}, {orderid}, {phone}, {name}, {firstname}, {email}</comment>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>2</sort_order>
+                        </shipment_template>
+                    </fields>
+                </templates>
+            </groups>
+        </smspro>
+    </sections>
+</config>

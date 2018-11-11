@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Ambab_Sms>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Ambab_Sms>
+    </modules>
+</config>
