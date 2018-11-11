@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Ambab_Sms>
+            <version>1.0.0</version>
+        </Ambab_Sms>
+    </modules>
+    <frontend>
+        <routers>
+            <sms>
+                <use>standard</use>
+                <args>
+                    <module>Ambab_Sms</module>
+                    <frontName>sms</frontName>
+                </args>
+            </sms>
+        </routers>
+       
+    </frontend>
+ 
+    <global>
+        <models>
+            <sms>
+                <class>Ambab_Sms_Model</class>
+                <resourceModel>sms_mysql4</resourceModel>
+            </sms>
+            <sms_mysql4>
+                <class>Ambab_Sms_Model_Mysql4</class>
+                <entities>
+                    <sms>
+                        <table>otpsms</table>
+                    </sms>
+                </entities>
+            </sms_mysql4>
+        </models>
+        <resources>
+            <sms_setup>
+                <setup>
+                    <module>Ambab_Sms</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </sms_setup>
+            <sms_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </sms_write>
+            <sms_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </sms_read>
+        </resources>
+        <helpers>
+            <ambab_sms>
+                <class>Ambab_Sms_Helper</class>
+            </ambab_sms>
+        </helpers>
+    
+    <events>
+        <sales_order_invoice_pay>
+        <observers>
+            <ambab_sms>
+                <class>Ambab_Sms_Model_Observer</class>
+                <method>newInvoice</method>
+            </ambab_sms>
+        </observers>
+    </sales_order_invoice_pay>
+    <customer_register_success>
+        <observers>
+            <ambab_sms>
+                <class>Ambab_Sms_Model_Observer</class>
+                <method>newCustomer</method>
+            </ambab_sms>
+        </observers>
+    </customer_register_success>
+<!-- <checkout_onepage_controller_success_action>
+               <observers>
+                   <ambab_sms>
+                       <class>Ambab_Sms_Model_Observer</class>
+                       <method>newOrder</method>
+                   </ambab_sms>
+               </observers>
+           </checkout_onepage_controller_success_action> -->
+   <!--  <sales_order_shipment_save_after>
+        <observers>
+            <Ambab_Sms_sales_order_shipment_save_after>
+                <class>Ambab_Sms/observer</class>
+                <method>newShipment</method>
+            </Ambab_Sms_sales_order_shipment_save_after>
+        </observers>
+    </sales_order_shipment_save_after> -->
+</events>
+</global>
+
+    <default>
+        <smspro>
+            <general>
+                <baseurl>http://instantalerts.co/api/web/send/</baseurl>
+                <active>0</active>
+                <username></username>
+                <password></password>
+                <overridednd>0</overridednd>
+            </general>
+            <smsevents>
+                <new_customer>0</new_customer>
+                <new_order>0</new_order>
+                <shipment>1</shipment>
+            </smsevents>
+            <templates>
+                <new_customer_template><![CDATA[Hi {firstname}, Thanks for registering with us. In case of any queries or questions please give us a call at 9999999999]]></new_customer_template>
+                <new_order_template><![CDATA[Thankyou for ordering with us. We have received your order and will process it soon. Your order id is {orderid}.]]></new_order_template>
+                <shipment_template><![CDATA[Your order {orderid} has been shipped and will be delivered to you before 8pm today. Your shipment id is {shipmentid}.]]></shipment_template>
+            </templates>
+        </smspro>
+    </default>
+</config>

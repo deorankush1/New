@@ -551,17 +551,19 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         /**
          * No reason continue with empty shopping cart
          */
+         $result = array();
         if (!$this->_getCart()->getQuote()->getItemsCount()) {
             $this->_goBack();
             return;
         }
-
         $couponCode = (string) $this->getRequest()->getParam('coupon_code');
+  
         if ($this->getRequest()->getParam('remove') == 1) {
             $couponCode = '';
         }
         $oldCouponCode = $this->_getQuote()->getCouponCode();
 
+    
         if (!strlen($couponCode) && !strlen($oldCouponCode)) {
             $this->_goBack();
             return;
@@ -569,6 +571,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
         try {
             $codeLength = strlen($couponCode);
+            Mage::log($codeLength,null,'sort.log');
             $isCodeLengthValid = $codeLength && $codeLength <= Mage_Checkout_Helper_Cart::COUPON_CODE_MAX_LENGTH;
 
             $this->_getQuote()->getShippingAddress()->setCollectShippingRates(true);
@@ -577,28 +580,48 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 ->save();
 
             if ($codeLength) {
+                
                 if ($isCodeLengthValid && $couponCode == $this->_getQuote()->getCouponCode()) {
-                    $this->_getSession()->addSuccess(
-                        $this->__('Coupon code "%s" was applied.', Mage::helper('core')->escapeHtml($couponCode))
-                    );
+                    $result['status'] = 'success';
+                    $result['message']= $this->__('Coupon code "%s" was applied.', Mage::helper('core')->escapeHtml($couponCode));
+                    
+                    $this->_getSession()->setCartCouponCode($couponCode);
                 } else {
-                    $this->_getSession()->addError(
-                        $this->__('Coupon code "%s" is not valid.', Mage::helper('core')->escapeHtml($couponCode))
-                    );
+                    $result['status'] = "invalid" ;
+                   
+                    $result['message']= $this->__('Coupon code "%s" is not valid.', Mage::helper('core')->escapeHtml($couponCode));
                 }
             } else {
-                $this->_getSession()->addSuccess($this->__('Coupon code was canceled.'));
+                    $result['status'] = "cancel";
+                    $result['message']= $this->__('Coupon code was canceled.');
+                
             }
 
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
-            $this->_getSession()->addError($this->__('Cannot apply the coupon code.'));
-            Mage::logException($e);
         }
 
-        $this->_goBack();
+
+        $abc = $this->_getSession()->getCartCouponCode();
+
+        $from  = $this->getRequest()->getParam('from');
+        
+        if($from == 'cart'){
+            $result['review'] = $this->totalsUpdateBlock();
+        }else{
+            $result['review'] = $this->_getReviewHtml();
+        }
+
+        $this->getResponse()->setHeader('Content-type', 'application/json');
+
+        return $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }
+
+     public function totalsUpdateBlock(){
+        $sidebar= $this->getLayout()->createBlock('checkout/cart_totals')->setTemplate('checkout/cart/totals.phtml')->toHtml();
+        return $sidebar;
+    }
+
 
     /**
      * Minicart delete action
