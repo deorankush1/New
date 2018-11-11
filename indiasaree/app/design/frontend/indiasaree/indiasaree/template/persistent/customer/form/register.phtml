@@ -261,6 +261,7 @@
                     var baseUrl = $j("#urll").val();
                     //alert(baseUrl);
                     var mobile_number = $j("#mobile_number").val();
+                     $j("#display_otp_message").html('otp sent successfully').show();
                     $j.ajax({
                         type : "POST",
                         url : baseUrl+"sms/index/index/mobile"+mobile_number,
@@ -272,6 +273,10 @@
                     });
 
                 }
+                setTimeout(function() {
+                            jQuery('#display_otp_message').hide();
+                        }, 5000);
+
             });
               
             
@@ -279,22 +284,21 @@
             $j("#resend_otp").click(function(){
                 var baseUrl = $j("#urll").val();
                 var mobile_number = $j("#mobile_number").val();
+                $j("#display_otp_message").html('otp sent successfully').show();
+
                 $j.ajax({
                         type : "POST",
                         url : baseUrl+"sms/index/index/mobile"+mobile_number,
                         data: {'mobile':mobile_number},
                         dataType: 'json',
-                        beforeSend: function() {
-                            // setting a timeout
-                           // jQuery().addClass('loading');
-                          //alert("here");
-                            jQuery('#ajax-loader').show();
-                        },
                         success : function(data){
-                            jQuery('#ajax-loader').hide();
                             console.log(data);
                         }
                     }); 
+                setTimeout(function() {
+                            jQuery('#display_otp_message').hide();
+                        }, 5000);
+
 
             });
 
