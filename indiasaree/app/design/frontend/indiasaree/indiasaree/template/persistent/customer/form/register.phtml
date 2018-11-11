@@ -259,7 +259,7 @@
                     $j("#registration_form_fields").css("display","none");
                     $j("#sms_otp").css("display","block");
                     var baseUrl = $j("#urll").val();
-                    alert(baseUrl);
+                    //alert(baseUrl);
                     var mobile_number = $j("#mobile_number").val();
                     $j.ajax({
                         type : "POST",
@@ -284,10 +284,18 @@
                         url : baseUrl+"sms/index/index/mobile"+mobile_number,
                         data: {'mobile':mobile_number},
                         dataType: 'json',
+                        beforeSend: function() {
+                            // setting a timeout
+                           // jQuery().addClass('loading');
+                          //alert("here");
+                            jQuery('#ajax-loader').show();
+                        },
                         success : function(data){
+                            jQuery('#ajax-loader').hide();
                             console.log(data);
                         }
                     }); 
+
             });
 
             $j("#verify_otp").click(function(e){
@@ -300,25 +308,39 @@
                     var baseUrl = $j("#urll").val();
                     var otp = $j("#otp").val();
                     //console.log(otp);
+
                     $j.ajax({
                         type     : "POST",
                         url      : baseUrl+"sms/index/getOtpByParam/",
                         dataType : "json",
                         data: {'otp':otp},
+                        beforeSend: function() {
+                            // setting a timeout
+                           // jQuery().addClass('loading');
+                          //alert("here");
+                            jQuery('#ajax-loader').show();
+                        },
                         success  : function(data){
+                        jQuery('#ajax-loader').hide();
                         console.log(data);
-                        alert(data);
+                        //alert(data);
                         if(data == "Valid OTP"){
                             //alert("otp match");
+                            $j("#display_otp_message").html(data).show();
                             $j("#form-validate").submit();
                         }
                         else{
-                            $j("#display_otp_message").html(data);
+                            $j("#display_otp_message").html(data).show();
+                        }
+                        
                         }
 
-                        }
+
                     });
                 }
+                setTimeout(function() {
+                            jQuery('#display_otp_message').hide();
+                        }, 5000);
 
            
             });
