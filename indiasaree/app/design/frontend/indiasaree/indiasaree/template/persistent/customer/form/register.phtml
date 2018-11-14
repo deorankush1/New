@@ -221,7 +221,7 @@
             </ul>
             <?php echo $this->getChildHtml('persistent.remember.me.tooltip'); ?>
         
-        
+        <?php if (Mage::helper('catalog')->isModuleOutputEnabled('Ambab_Sms')) { ?>
             <div class="buttons-set">
                 <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>" class="back-link"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
                 <button type="button" id ="register_button" title="<?php echo $this->quoteEscape($this->__('Register')) ?>" class="button"><span><span><?php echo $this->__('Register') ?></span></span></button>
@@ -231,15 +231,14 @@
                 <input name="context" type="hidden" value="checkout" />
             <?php endif; ?>
         </div>
-
-        <div id = "sms_otp" style="display: none;">
-            <input type="text" id ="otp" name="otp"  placeholder="enter otp number" /><span style="color: red;" id ="display_otp_message"></span>
-            <button type="submit" id ="verify_otp" class="button">Verify</button>
-            <button type="button"  id ="resend_otp" class="button">Resend Otp</button>
-            <input type="hidden" name="url" id="urll" value="<?php echo $this->getUrl(); ?>">
-        </div>
-    
-    </form>
+        
+            <div id = "sms_otp" style="display: none;">
+                <input type="text" id ="otp" name="otp"  placeholder="enter otp number" /><span style="color: red;" id ="display_otp_message"></span>
+                <button type="submit" id ="verify_otp" class="button">Verify</button>
+                <button type="button"  id ="resend_otp" class="button">Resend Otp</button>
+                <input type="hidden" name="url" id="urll" value="<?php echo $this->getUrl(); ?>">
+            </div>
+        
     
     
 <script type="text/javascript">
@@ -255,6 +254,7 @@
         
 
             $j("#register_button").click(function(){
+                alert('herer');
                     if(dataForm.validator.validate() && dataForm.validator){
                     $j("#registration_form_fields").css("display","none");
                     $j("#sms_otp").css("display","block");
@@ -357,4 +357,21 @@
 
    
 </script>
+<?php }?>
+<div class="buttons-set">
+            <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>" class="back-link"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+            <button type="submit" title="<?php echo $this->quoteEscape($this->__('Register')) ?>" class="button"><span><span><?php echo $this->__('Register') ?></span></span></button>
+        </div>
+        <?php if (Mage::helper('checkout')->isContextCheckout()): ?>
+            <input name="context" type="hidden" value="checkout" />
+        <?php endif; ?>
+    </form>
+    <script type="text/javascript">
+    //<![CDATA[
+        var dataForm = new VarienForm('form-validate', true);
+        <?php if($this->getShowAddressFields()): ?>
+        new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'zip');
+        <?php endif; ?>
+    //]]>
+    </script>
 </div>
