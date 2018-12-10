@@ -26,7 +26,7 @@
  */
 -->
 <config>
-    <global>
+    <global1>
         <install>
             <date><![CDATA[Fri, 06 Jul 2018 08:39:08 +0000]]></date>
         </install>
